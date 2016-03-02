@@ -1,0 +1,419 @@
+﻿/* http://tympanus.net/codrops/2013/08/06/creative-link-effects/ 
+   this guide has demo and link to github that show a variety of links. I used the first effect.
+*/
+
+/* TABLE OF CONTENTS
+
+    1. Basic Document Styles
+    2. Typography
+    3. Button
+    4.  Component
+    5. 
+    6. 
+    7. 
+    8. Footer
+    9. Sticky footer styles
+    10. Media Queries
+*/
+/* 1. Basic Document Styles
+-------------------------------------------------*/
+
+html * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+html {  font-size: 100%;  }
+
+html, body {
+  height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-weight: 400;
+    color: rgba(0, 0, 0, .87);
+    font-size: 14px;
+    font-size: 0.875rem;
+    line-height: 20px;
+    line-height: 1.25rem;
+    text-align: center;
+}
+h1 {
+    font-size: 112px;
+    font-size: 7rem;
+    color: rgba(0,0,0,.54);
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-weight: 300;
+}
+h2 {
+    font-size: 56px;
+    font-size: 3.5rem;
+    color: rgba(0,0,0,.54);
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-weight: 400;
+}
+h3 {
+    font-size: 45px;
+    font-size: 2.8rem;
+    color: rgba(0,0,0,.54);
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-weight: 400;
+    line-height: 48px;
+    line-height: 3rem;
+}
+h4 {
+    font-size: 34px;
+    font-size: 2.1rem;
+    color: rgba(0,0,0,.54);
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-weight: 400;
+    line-height: 40px;
+    line-height: 2.5rem;
+}
+h5 {
+    font-size: 24px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(0,0,0,.87);
+    line-height: 32px;
+    line-height: 2rem;
+}
+h6 {
+    font-size: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgba(0,0,0,0.87);
+}
+caption {
+    font-size: 12px;
+    font-size: 0.7rem;
+    color: rgba(0,0,0,0.54);
+}
+button {
+    font-weight: 500;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-size: 14px;
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.87);
+    text-transform: uppercase;
+}
+nav {
+    background-color: #009688;
+    color: #000;
+    text-transform: uppercase;
+}
+i {
+    padding: 0 5px;
+    color: #fff;   
+}
+img {  display: block;  }
+
+section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    height: 1000px;
+}
+a {  color: #9C27B0;  }
+
+fa { color: #ccc; }
+
+/* 2. Typography 
+-------------------------------------------------*/
+
+.primary-color { color: #009688;  }
+
+.primary-color100 {  color: #B2DFDB;  }
+
+.primary-color700 {  color: #00796B;  }
+
+.accent-color {  color: #FF6E40;  }
+
+.accent-100 {  color: #FF9E80;  }
+
+.accent-400 {  color: #FF3D00;  }
+
+.base-black {  color: #000;  }
+
+.text-primary-black {
+    color: #000;
+    opacity: .87;
+}
+.secondary-text-black {
+    color: #000;
+    opacity: .54;
+}
+.disabled-text-black {
+    color: #000;
+    opacity: .38;
+}
+.dividers-black {
+    color: #000;
+    opacity: .12;
+}
+.base-white {  color: #FFF;  }
+
+.text-primary-white {  color: #FFF;  }
+
+.secondary-text-white {
+    color: #FFF;
+    opacity: .70;
+}
+.disabled-text-white {
+    color: #FFF;
+    opacity: .30;
+}
+.dividers-white {
+    color: #000;
+    opacity: .12;
+}
+/* 3. Button
+-------------------------------------------------*/
+
+.btn {
+    min-width: 64px;
+    min-height: 36px;
+    padding: 0 8px;
+    margin: 8px;
+    letter-spacing: 1px;
+    background-color: #E040FB;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+    border: 0 none;
+    border-radius: none;   
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+    outline: 0 none;
+    box-shadow: 0 0 8px rgba(0,0,0,.18), 0 8px 16px rgba(0,0,0,.36);
+}
+.btn-primary {
+    color: #ffffff;
+    background: #E040FB;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    background: #D500F9;
+}
+.btn-primary:active,
+.btn-primary.active {
+    background: #E040FB;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+.btn-primary.active.focus,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.btn-primary:active.focus,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.open>.dropdown-toggle.btn-primary.focus,
+.open>.dropdown-toggle.btn-primary:focus,
+.open>.dropdown-toggle.btn-primary:hover {
+    background: #E040FB;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+
+.app_container{
+  margin-top: 50px; 
+}
+
+.calc_app_container{
+  width: 209px;
+  margin-top: 30px;
+  padding-right: 0;
+  padding-left: 0;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+
+body {
+  background-color: #3B3A47;
+}
+
+/* 4. Calc Header component
+---------------------------------------*/
+.calc_header {
+  width: 209px;
+  color: #fff;
+  background-color: black;
+}
+
+.calc_header_icon{
+  color: #fff;
+}
+
+.calc_header_ul{
+  width: 209px;
+  padding: 0px;
+  margin: 0px;
+  font-size: 10px;
+}
+
+.calc_header ul li {
+  display: inline-block;
+}
+
+/* 5. Calc Button Display component
+---------------------------------------*/
+.calc_buttons_container{
+  width: 209px;
+  color: #F6F5F5;
+}
+
+.calc_button_container{
+  display: inline-block;
+  height: 50px;
+  width: 52px;
+  margin-right: -4px;
+  line-height: 50px;
+}
+
+.calc_button{
+  line-height: 48px;
+  display: block;
+  border: 1px;
+  border-style: solid;
+  border-color: #ccc;
+  background-color: #292F33;
+  font-size: 1.25rem;
+  font-size: 20px;
+  outline: none;
+}
+
+.calc_button:active,
+.calc_button:focus,
+{
+  outline: none;
+}
+
+.calc_button_top_corner_left {
+    
+}
+
+.calc_button_top_corner_right{
+ 
+}
+
+.calc_button_bot_corner_left {
+  
+}
+
+.calc_button_bot_corner_right {
+ 
+}
+
+.calc_button_right{
+  background-color: #1C1F21;
+  color: #2E8DA5;
+}
+
+.calc_button_inner{
+
+}
+
+/* 6. Calc Total Display component
+---------------------------------------*/
+.calc_total_display{
+  height: 50px;
+  background-color: #131415;
+  color: #F6F5F5;
+  position: relative;
+}
+
+.calc_total_display_number{
+  position: absolute;
+  right: 0;
+  color: #F6F5F5;
+}
+
+/* 7. Calc Numbers Display Component
+---------------------------------------*/
+.calc_numbers_display{
+  width : 209px;
+  height: 50px;
+  position: relative;
+  padding: 5px;
+  background-color: #1C1F21;
+  color: #F6F5F5;
+
+}
+
+
+
+.calc_numbers_display_clock_container {
+  position: absolute;
+  left: 5px;
+}
+
+.calc_numbers_display_number_container {
+  
+}
+
+.calc_numbers_input_header{
+  padding: 0;
+  margin: 0;
+  color: #F6F5F5;
+}
+
+.calc_numbers_input{
+  text-align: right;
+}
+
+/* 8. Footer
+---------------------------------------*/
+
+footer {  background-color: #fafafa;  }
+
+footer .container {  padding: 16px;  }
+
+footer ul {  padding-left: 0;  }
+
+footer ul li {
+    float: left;
+    margin-right: 10px;   
+    display: block;
+    list-style: none;
+}
+
+footer ul li a:active,
+footer ul li a:hover {
+    color: #FF3D00;
+}
+
+.footer-top-section {  height: 25px;  }
+
+.footer-bottom-section {
+    margin-top: 10px;
+    margin-top: 0.714rem;
+}
+
+/* 9. Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+/* 10. Media Queries
+------------------------------ */
+
+@media (max-width: 800px) {
+    body {
+        font-size: 18px;
+        font-size: 1rem;
+    }
+}

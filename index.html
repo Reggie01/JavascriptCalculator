@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+  <meta name="description" content="Zipline: Use JavaScript Calculator to create an calculator app.">
+  <meta name="keywords" content="FreeCodeCamp, zipline, fcc">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css"/>
+  <title>JavaScript Calculator</title>
+  <!--[if lte IE 8]>
+    <link rel="stylesheet" type="text/css" href="css/ie8-and-down.css" />
+  </![endif]-->
+</head>
+  <body>
+    <div class="container calc_app_container">
+      <div class="calc_header">
+        <ul class="calc_header_ul">
+          <li></li>
+          <li>Foo</li>
+          <li><i class="fa fa-wifi fa-lg calc_header_icon"></i></li>
+          <li>9.23AM</li>
+          <li></li>
+          <li><i class="fa fa-lock calc_header_icon"></i></li>
+          <li></li>
+          <li>66%</li>
+          <li><i class="fa fa-battery-half fa-lg calc_header_icon"></i></li>       
+        </ul>
+      </div>
+      <div class="calc_numbers_display">
+        <div class="calc_numbers_display_clock_container">
+          <i class="fa fa-clock-o"></i>
+        </div>
+        <div class="calc_numbers_display_number_container">
+          <div class="calc_numbers_input"><h4 class="calc_numbers_input_header">22</h4></div>
+        </div>
+      </div>
+      <div class="calc_total_display">
+       <h4 class="calc_total_display_number">22</h4>
+      </div>
+      <div class="calc_buttons_container">
+        <div class="calc_button_container"><span class="calc_button calc_button_top_corner_left" data-id="7">7</span></div>
+        <div class="calc_button_container"><span class="calc_button" data-id="8">8</span></div>
+        <div class="calc_button_container"><span class="calc_button" data-id="9">9</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_right calc_button_top_corner_right" data-id="+">+</span></div>
+        <div class="calc_button_container"><span class="calc_button" data-id="4">4</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_inner" data-id="5">5</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_inner" data-id="6">6</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_right calc_button_right" data-id="-">-</span></div>
+        <div class="calc_button_container"><span class="calc_button" data-id="1">1</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_inner" data-id="2">2</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_inner" data-id="3">3</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_right" data-id="*">X</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_bot_corner_left" data-id="c">C</span></div>
+        <div class="calc_button_container"><span class="calc_button" data-id=".">.</span></div>
+        <div class="calc_button_container"><span class="calc_button" data-id="=">=</span></div>
+        <div class="calc_button_container"><span class="calc_button calc_button_right calc_button_bot_corner_right" data-id="0">0</span></div>        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <script id="header_template" type="text/x-handlebars-template">
+      
+    </script>
+    <script id="list_template" type="text/x-handlebars-template">
+      
+    </script>
+    <script id="button_template" type="text/x-handlebars-template">
+       
+    </script>
+    <script id="display_total_template" type="text/x-handlebars-template">
+      
+    </script>
+    <script src="js/index.js"></script>
+
+  </body>
+</html>
+  
