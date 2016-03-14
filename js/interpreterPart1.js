@@ -119,7 +119,7 @@ function Interpreter( text ){
     }
     
     if( is_int( this.text.charAt( this.pos ) ) ) {
-      return this.getNumber( this.text.charAt( this.pos ) );
+      return this.getNumber( );
       
     }
     

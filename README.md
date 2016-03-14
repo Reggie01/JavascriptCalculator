@@ -21,6 +21,16 @@ to see all user stories for the [project](http://www.freecodecamp.com/challenges
   The blog is written in python. So I needed to change some things. Also, he has questions for his readers to solve at the end of his blogs.
   My solutions can be found in Interpreter files and ctrl-F for 'Q'.
 
+  
+### Articles/Research
+ * https://en.wikipedia.org/wiki/Interpreter_(computing)
+ * https://en.wikipedia.org/wiki/Visitor_pattern#Related_design_patterns
+ * http://www.hillside.net/plop/plop2003/Papers/Jones-ImplementingASTs.pdf
+   - found under wiki [page](https://en.wikipedia.org/wiki/Abstract_syntax_tree) Further Reading section
+ * https://en.wikipedia.org/wiki/Reverse_Polish_notation
+ * https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+ * https://en.wikipedia.org/wiki/Parsing 
+  
 ### Art Direction
 * calculator design inpired by [Alexandru Stoica]( https://www.behance.net/gallery/10697005/Flat-Calculator )
 
