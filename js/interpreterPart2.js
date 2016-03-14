@@ -110,7 +110,7 @@ function Interpreter( text ){
   }
   
   this.get_next_token = function(){
-    // Scanner This method is responsible 
+    // Scanner 
     
     while( this.current_char ) {
       if( is_whitespace( this.current_char ) ){
@@ -170,7 +170,14 @@ function Interpreter( text ){
   
   /*
      --Q3 Modify the code to interpret expressions containing an arbitrary number of additions and subtractions, for example “9 - 5 + 3 + 11”
+     -Takes an array of tokens
+     - local variables: curr_Token, sum, pos
+     - Loop through all the tokens until I reach the "EOF" token
+     - If the current token is an Integer add to sum value // Maybe should be taken out of the while loop. Should only occur once
+     - If the current operation [+, -, *, /] {1} then advance current position by 1, then assign current token to tokens array at current position, lastly assign to sum the operation with the current value.
+     ex. if the current token type was "PLUS" then sum += current token value
      I loop through all the tokens until I reach the "EOF" token
+     Return sum
   */
   this.executeExpression = function( tokens ){
     var curr_Token = tokens[0];
@@ -234,6 +241,8 @@ function Interpreter( text ){
            }
         }
      }
+     
+     console.log( this.current_tokens );
      this.current_tokens.push( this.current_token );
      
      /*
@@ -271,6 +280,14 @@ var divideInterpreter = new Interpreter( "3 / + 3" );
 var result = divideInterpreter.expr();
 console.log( result );
 
-var divideInterpreter = new Interpreter( "33 33 - 33" );
+var divideInterpreter = new Interpreter( "3333 - 33" );
 var result = divideInterpreter.expr();
+console.log( result );
+
+var multipleValues = new Interpreter( "33 + 33 + 33" );
+var result = multipleValues.expr();
+console.log( result );
+
+var divideMultipleValues = new Interpreter( "33 / 33 + 33" );
+var result = divideMultipleValues.expr();
 console.log( result );
