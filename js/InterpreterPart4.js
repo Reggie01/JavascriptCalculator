@@ -1,16 +1,23 @@
 ﻿/* 
-  Study material: http://ruslanspivak.com/lsbasi-part3/ 
+  Study material: https://ruslanspivak.com/lsbasi-part4/ 
   Read to see Ruslan's code changes to the interpreter.
   The following code is my answer to Ruslan's blog exercises.
 */
 
-// Version 0.3.0
-/* 
-   Q3/Exercise from Ruslan's blog
-   Write an interpreter that handles arithmetic expressions like “7 - 3 + 2 - 1” from scratch. Use any programming language you’re comfortable with and write it off the top of your head without looking at the examples. When you do that, think about components involved: a lexer that takes an input and converts it into a stream of tokens, a parser that feeds off the stream of the tokens provided by the lexer and tries to recognize a structure in that stream, and an interpreter that generates results after the parser has successfully parsed (recognized) a valid arithmetic expression. String those pieces together. Spend some time translating the knowledge you’ve acquired into a working interpreter for arithmetic expressions.
-   
-   This exercise is the longest one that has been assigned so far. I chose to use 3 classes. Lexer, Parser and Interpreter.
-   I found the code easier to understand than combining the parser and interpreter together.
+// Version 0.4.0
+/*
+    Exercises from blog
+    1. Write a grammar that describes arithmetic expressions containing any number of +, -, *, or / operators. With the grammar you should be able to derive expressions like “2 + 7 * 4”, “7 - 8 / 4”, “14 + 2 * 3 - 6 / 2”, and so on.
+    2. Using the grammar, write an interpreter that can evaluate arithmetic expressions containing any number of +, -, *, or / operators. Your interpreter should be able to handle expressions like “2 + 7 * 4”, “7 - 8 / 4”, “14 + 2 * 3 - 6 / 2”, and so on.
+*/
+
+/*
+    Exercise from blog answer 1
+    BNF
+    expr: factor((MUL|DIV|ADD|SUBTRACT) factor)*
+    factor: INTEGER
+*/
+  
 /* 
   Token class
     Parameters
@@ -68,6 +75,10 @@ function isSubtractionOp( character ){
 
 function isOperator( character ){
    return /[*\+-]/.test( character );
+}
+
+function isOperatorType( type ){
+   return /(MULTIPLY|DIVIDE|ADD|SUBTRACT)/.test( type );
 }
 
 function isWhiteSpace( character ){
@@ -137,6 +148,19 @@ function Lexer( text ){
           continue;
        }
        
+       if( isMultiplyOp( this.currentChar ) ) {
+          this.tokens.push( new Token( Type.MULTIPLY, "*" ) );
+          this.advance();
+          continue;
+       }
+       
+       if( isDivideOp( this.currentChar ) ) {
+          this.tokens.push( new Token( Type.DIVIDE, "/" ) );
+          this.advance();
+          continue;
+          
+       }
+       
        if( isAdditionOp( this.currentChar ) ){
           this.tokens.push( new Token( Type.ADD, "+") );
           this.advance();
@@ -164,8 +188,8 @@ var lexer = new Lexer( "2 + 2" );
 var lexer = new Lexer( "7 - 3 + 2 - 1" );
 // console.log( lexer.createTokens() );   
 
-// var lexer = new Lexer( "7 * 3 + 2 - 1" );
-// console.log( lexer.createTokens() );   
+var lexer = new Lexer( "7 * 3 + 2 - 1" );
+//console.log( lexer.createTokens() );   
 
 
 /*
@@ -179,47 +203,65 @@ var lexer = new Lexer( "7 - 3 + 2 - 1" );
         -- tokens: type Array of objects
         -- currentToken: type object
       Functions
-        -- parse 
+        -- expr 
           parse a series of tokens, checking that structure is correct
           ex. 2 + 2 or 6 - 4 + 3
-        -- advance
-          advance position and re-assign current token
-        -- verifyInteger
+        -- factor
           verify current token is an integer
+       -- verifyToken
+         verify current token matches token type if true increment position, assign current token to token in tokens array at index position
       Return True/False
+  
 */
+
+/*
+      language grammar
+      expr: factor((MUL|DIV|ADD|SUBTRACT) factor)/*
+      factor: INTEGER
+*/
+
 function Parser( tokens ) {
    
    var tokens = tokens;
    var position = 0;
    var currentToken = tokens[position];
 
-   
-   var advance = function() {
-      position += 1;
-      currentToken = tokens[position];
+   var verifyToken = function( tokenType ) {
+      if( currentToken.type === tokenType ){
+        position += 1;
+        currentToken = tokens[position]; 
+      } else {
+         throw new Error("parser did not recognize structure");
+      }
    }
    
-   var verifyInteger = function(){
-    return isInteger( currentToken.value );
+   var factor = function() {
+      verifyToken( Type.INTEGER );
    }
    
-   this.parse = function(){
+   this.expr = function(){
+     var result = factor();
      
-     if( verifyInteger() ){
-        advance();
+     while( isOperatorType( currentToken.type ) ){
+       
+       if( currentToken.type === "ADD" ){
+         verifyToken( Type.ADD );
+         factor();
+       } else if( currentToken.type === "SUBTRACT" ) {
+          verifyToken( Type.SUBTRACT );
+          factor();
+       } else if( currentToken.type === "MULTIPLY" ){
+          verifyToken( Type.MULTIPLY );
+          factor();
+       } else if( currentToken.type === "DIVIDE" ){
+          verifyToken( Type.DIVIDE );
+          factor();
+       }
+       
      }
      
-     while( currentToken.type !== "EOF" ){
-       if( currentToken.type === "ADD" || currentToken.type === "SUBTRACT" ){
-         advance();
-         if( verifyInteger() ){
-           advance();      
-         } else {
-            return new Error("parser did not recognize structure");
-         }
-       }
-      
+     if( currentToken.type === "EOF" ){
+        return true;
      }
      return true;     
    }
@@ -227,17 +269,17 @@ function Parser( tokens ) {
   
 }
   
-var lexer = new Lexer( "7 + 3 + 2 - 1" );
+var lexer = new Lexer( "7 * 3 + 2 - 1" );
 var tokens = lexer.createTokens();        
-
 var parser = new Parser( tokens );
+console.log( parser.expr() );
     
-var lexer = new Lexer( "7 +  + 3 + 2 - 1" );
-var tokens = lexer.createTokens();        
+var lexer1 = new Lexer( "7 +  + 3 + 2 - 1" );
+var tokens1 = lexer1.createTokens();        
 
-// Should return: [Error: parser did not recognize structure]
-var parser = new Parser( tokens );
-// console.log( parser.parse() );
+var parser1 = new Parser( tokens1 );
+// Should throw parsing error
+//console.log( parser1.expr() );
      
 /*
   Interpreter
@@ -257,6 +299,13 @@ var parser = new Parser( tokens );
         -- while current token is not equal to token type "EOF" , 
             check for current token type operation, advance current token, perform operation, and advance current token
     Return sum
+    
+*/
+
+/*
+      language grammar
+      expr: factor((MUL|DIV|ADD|SUBTRACT) factor)/*
+      factor: INTEGER
 */
 
 function Interpreter( tokens ){
@@ -270,25 +319,38 @@ function Interpreter( tokens ){
       currentToken = tokens[position];
    }
    
-   sum = currentToken.value;
-   advance();
+   var factor = function() {
+      var token = currentToken;
+      advance();
+      return token.value;
+   }
    
-   this.evaluateExpression = function() {
-     while( currentToken.type !== "EOF" ){
-      
-      if( currentToken.type == "ADD" ){
-         advance();
-         sum += currentToken.value;
-         advance();
-      } else if( currentToken.type === "SUBTRACT" ) {
-         advance();
-         sum -= currentToken.value;
-         advance();
-      }
+   this.expr = function(){
 
-     } 
+     var result = factor();
      
-     return sum;
+     while( isOperatorType( currentToken.type ) ){
+       
+       if( currentToken.type === "ADD" ){
+         factor();
+         result += factor();
+       } else if( currentToken.type === "SUBTRACT" ) {
+          factor();
+          result -= factor();
+       } else if( currentToken.type === "MULTIPLY" ){
+          factor();
+          result *= factor();
+       } else if( currentToken.type === "DIVIDE" ){
+          factor();
+          result /= factor();
+       }
+       
+     }
+     
+     if( currentToken.type === "EOF" ){
+        return result;
+     }
+     //return true;     
    }
      
 }
@@ -298,9 +360,9 @@ var tokens = lexer.createTokens();
 
 var parser = new Parser( tokens );
 
-if( parser.parse() ){
+if( parser.expr() ){
    var interpreter = new Interpreter( tokens );
-   console.log( interpreter.evaluateExpression() );  
+   console.log( interpreter.expr() );  
 }      
 
 var lexer1 = new Lexer( "7 - 3 - 2 - 1" );
@@ -308,9 +370,9 @@ var tokens = lexer1.createTokens();
 
 var parser1 = new Parser( tokens );
 
-if( parser1.parse() ){
+if( parser1.expr() ){
    var interpreter1 = new Interpreter( tokens );
-   console.log( interpreter1.evaluateExpression() );  
+   console.log( interpreter1.expr() );  
 }  
 
 
