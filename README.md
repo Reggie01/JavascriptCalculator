@@ -29,7 +29,8 @@ to see all user stories for the [project](http://www.freecodecamp.com/challenges
    - found under wiki [page](https://en.wikipedia.org/wiki/Abstract_syntax_tree) Further Reading section
  * https://en.wikipedia.org/wiki/Reverse_Polish_notation
  * https://en.wikipedia.org/wiki/Shunting-yard_algorithm
- * https://en.wikipedia.org/wiki/Parsing 
+ * https://en.wikipedia.org/wiki/Parsing
+ * http://stackoverflow.com/questions/2245962/is-there-an-alternative-for-flex-bison-that-is-usable-on-8-bit-embedded-systems/2336769#2336769 
   
 ### Art Direction
 * calculator design inpired by [Alexandru Stoica]( https://www.behance.net/gallery/10697005/Flat-Calculator )

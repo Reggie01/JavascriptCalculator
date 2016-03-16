@@ -1,5 +1,6 @@
 ﻿var assert = require('assert');
 var interpreter = require( "../js/interpreterPart5.js" );
+
 describe('Array', function() {
   describe('#indexOf()', function () {
     it('should return -1 when the value is not present', function () {
@@ -8,8 +9,6 @@ describe('Array', function() {
     });
   });
 });
-
-console.log( interpreter );
 
 describe( "Token", function() {
    describe( "Token constructor", function() {
@@ -72,7 +71,7 @@ describe( "Lexer", function() {
    describe( "Lexer.createTokens", function() {
       it("should return true", function() {        
          var token = new interpreter.Token("INTEGER", 2);
-         assert.equal( token.value, new interpreter.Lexer("2 + 2").createTokens()[0].value );
+         assert.equal( 2, new interpreter.Lexer("2 + 2").createTokens()[0].value );
       });
    });
 });
@@ -82,6 +81,57 @@ describe( "Lexer", function() {
       it("should return true", function() {        
          var token = new interpreter.Token("INTEGER", 2);
          assert.equal( "Error: parsing error", new interpreter.Lexer("2 + ^ 2").createTokens() );
+      });
+   });
+});
+
+describe( "Lexer create RPAREN", function() {
+   describe( "Lexer.createTokens", function() {
+      it("should return true", function() {        
+         var token = new interpreter.Token("INTEGER", 2);
+         assert.equal( "LPAREN", new interpreter.Lexer("(1)").createTokens()[0].type );
+         assert.equal( "1", new interpreter.Lexer("(1)").createTokens()[1].value );
+         assert.equal( "RPAREN", new interpreter.Lexer("(1)").createTokens()[2].type );
+      });
+   });
+});
+
+describe( "Parser", function() {
+   describe( "Parser.expr( '1' )", function() {
+      it("should return 1", function() {        
+         var tokens = new interpreter.Lexer( "1" ).createTokens();
+         var parser = new interpreter.Parser( tokens );
+         assert.equal( 1, parser.expr() );
+      });
+   });
+});
+
+describe( "Parser", function() {
+   describe( "Parser.expr( '2 + 2')", function() {
+      it("should return 4", function() {        
+         var tokens = new interpreter.Lexer( "2+2" ).createTokens();
+         var parser = new interpreter.Parser( tokens );
+         assert.equal( 4, parser.expr() );
+      });
+   });
+});
+
+describe( "Parser", function() {
+   describe( "Parser.expr( '2 + 2 * 3')", function() {
+      it("should return 8", function() {        
+         var tokens = new interpreter.Lexer( "2 + 2 * 3" ).createTokens();
+         var parser = new interpreter.Parser( tokens );
+         assert.equal( 8, parser.expr() );
+      });
+   });
+});
+
+describe( "Parser", function() {
+   describe( "Parser.expr( '(2 + 2) * 3')", function() {
+      it("should return 12", function() {        
+         var tokens = new interpreter.Lexer( "(2 + 2) * 3" ).createTokens();
+         var parser = new interpreter.Parser( tokens );
+         assert.equal( 12, parser.expr() );
       });
    });
 });

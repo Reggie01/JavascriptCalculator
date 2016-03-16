@@ -37,6 +37,8 @@ function Token( type, value ){
      SUBTRACT: "SUBTRACT",
      MULTIPLY: "MULTIPLY",
      DIVIDE: "DIVIDE",
+     LPAREN: "LPAREN",
+     RPAREN: "RPAREN",
      EOF: "EOF"
   }
 
@@ -68,6 +70,13 @@ function isDivisionOp( character ){
    return /\//.test( character );
 }
 
+function isLeftParenOp( character ){
+   return /\(/.test( character );
+}
+
+function isRightParenOp( character ){
+   return /\)/.test( character );
+}
 
 /*
     Lexer Class
@@ -159,10 +168,22 @@ function Lexer( text ){
            continue;
         }
         
+        if( isLeftParenOp( currentChar ) ){
+           tokens.push( new Token( Type.LPAREN, "(" ) );
+           advance();
+           continue;
+        }
+        
+        if( isRightParenOp( currentChar ) ){
+           tokens.push( new Token( Type.RPAREN, ")" ) );
+           advance();
+           continue;
+        }
+        
         try {
           throw new Error('parsing error');
         } catch (e) {
-          console.log(e.name + ': ' + e.message);
+          //console.log(e.name + ': ' + e.message);
           return e.name + ': ' + e.message;
         } 
      }
@@ -174,6 +195,109 @@ function Lexer( text ){
    }
 }
 
+
+
+/* 
+    Parser/Interpreter Class
+      Purpose
+        -- syntax analyzer - check the structure of the tokens form a coherent expression, then interpret
+      Local Variables
+        -- position: type Number
+        -- currentToken: type object
+        -- tokens: type Array of objects
+      Local Functions
+        -- term
+          follow grammar rule factor((MUL|DIV) factor)*
+        -- factor
+          follow grammar rule INTEGER | ( expr )
+        -- advanceToken
+          increment position by 1 and assign current token to 
+        -- verifyToken
+          verify token is correct if not throw error         
+      Global Function
+        -- expr
+          follow grammar rule term((ADD|SUB) term)*      
+         
+      Grammar:
+      Rule  Production
+      -----   --------------
+      expr: term((ADD|SUB) term)*
+      term: factor((MUL|DIV) factor)*
+      factor: INTEGER | ( expr )
+*/
+
+function Parser( tokens ) {
+   var tokens = tokens;
+   var position = 0;
+   var currentToken = tokens[0];
+   var self = this;
+   
+   var advance = function(){
+      position += 1;
+      currentToken = tokens[position];      
+   };
+   
+   var verifyToken = function( type) {
+      if(currentToken.type === type ) {
+         advance();
+      } else {
+         throw new Error( "parsing error" );
+      }
+   };
+   
+   // expr: term((ADD|SUB) term)*
+   self.expr = function() {
+      var result = term();
+
+      while( /(ADD|SUBTRACT)/.test( currentToken.type ) ){
+         if( currentToken.type === "ADD" ){
+            verifyToken( "ADD" );
+            result += term();
+         } else if( currentToken.type === "SUBTRACT" ){
+            verifyToken( "SUBTRACT" );
+            result -= term();
+         }
+      }
+      
+      return result;
+   }
+   
+   // term: factor((MUL|DIV) factor)*
+   var term = function(){
+      var result = factor();
+
+      while( /(MULTIPLY|DIVIDE)/.test( currentToken.type ) ){
+         if( /MULTIPLY/.test( currentToken.type) ){
+            verifyToken( "MULTIPLY" );
+            result *= factor();
+         } else if( /DIVIDE/.test( currentToken.type ) ) {
+            verifyToken( "DIVIDE" );
+            result /= factor();
+         }
+      }
+      
+      return result;
+      
+   }
+   
+   // factor: INTEGER | ( expr )
+   var factor = function(){
+      var result = "";
+      
+      if( currentToken.type === "LPAREN" ){
+         verifyToken( "LPAREN" );
+         result = self.expr();
+         verifyToken( "RPAREN" );
+      } else if( currentToken.type === "INTEGER" ) {        
+         result = currentToken.value;
+         verifyToken( "INTEGER" );
+      }
+      
+      return result;
+   }  
+    
+}
+         
 module.exports = {
   Token: Token,
   isWhiteSpace: isWhiteSpace,
@@ -182,12 +306,9 @@ module.exports = {
   isSubtractOp: isSubtractOp,
   isMultiplicationOp: isMultiplicationOp,
   isDivisionOp: isDivisionOp,
-  Lexer: Lexer
-}
-
-/* 
-    Parser Class
-*/
+  Lexer: Lexer,
+  Parser: Parser
+} 
 
 /*
     Interpreter Class
