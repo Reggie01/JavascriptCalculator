@@ -135,3 +135,15 @@ describe( "Parser", function() {
       });
    });
 });
+
+
+
+describe( "Parser", function() {
+   describe( "Parser.expr( '7 + 3 * (10 / (12 / (3 + 1) - 1))')", function() {
+      it("should return 22", function() {        
+         var tokens = new interpreter.Lexer( "7 + 3 * (10 / (12 / (3 + 1) - 1))" ).createTokens();
+         var parser = new interpreter.Parser( tokens );
+         assert.equal( 22, parser.expr() );
+      });
+   });
+});

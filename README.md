@@ -18,8 +18,8 @@ to see all user stories for the [project](http://www.freecodecamp.com/challenges
 * I watched a video on interpreter for an overhead view on creating interpreters. [So you want to write an interpreter?](https://www.youtube.com/watch?v=LCslqgM48D4).  The talk is given by Alex Gaynor.
 
 * Next, I read [Ruslan's Blog](https://ruslanspivak.com/lsbasi-part1/) on how to create an interpreter for my calculator.
-  The blog is written in python. So I needed to change some things. Also, he has questions for his readers to solve at the end of his blogs.
-  My solutions can be found in Interpreter files and ctrl-F for 'Q'.
+  The blog is written in python. So I needed to change some things. Also, he has exercises/questions for his readers to solve at the end of his blogs.
+  My solutions can be found in Interpreter.js files.
 
   
 ### Articles/Research
@@ -55,6 +55,10 @@ to see all user stories for the [project](http://www.freecodecamp.com/challenges
 * display Numbers
 * hover event button darkens
 * center text
+
+#### Test Framework
+* [mocha](https://mochajs.org/)
+* All tests can be found under test folder
 
 ### Technologies Used
 * javascript
