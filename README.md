@@ -32,8 +32,12 @@ to see all user stories for the [project](http://www.freecodecamp.com/challenges
  * https://en.wikipedia.org/wiki/Parsing
  * http://stackoverflow.com/questions/2245962/is-there-an-alternative-for-flex-bison-that-is-usable-on-8-bit-embedded-systems/2336769#2336769 
   
+### Visual Tools for Interpreter 
+* http://jointjs.com/demos/javascript-ast
+  A great visual tool for ASTs
+  
 ### Art Direction
-* calculator design inpired by [Alexandru Stoica]( https://www.behance.net/gallery/10697005/Flat-Calculator )
+* calculator design inspired by [Alexandru Stoica]( https://www.behance.net/gallery/10697005/Flat-Calculator )
 
 ### Components
 

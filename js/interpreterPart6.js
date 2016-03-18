@@ -297,8 +297,8 @@ var Interpreter = function() {
    }
 };
 
-module.exports = {
-   regexHelpers: regexHelpers,
-   Lexer: Lexer,
-   Interpreter: Interpreter
-}
+// module.exports = {
+   // regexHelpers: regexHelpers,
+   // Lexer: Lexer,
+   // Interpreter: Interpreter
+// }
