@@ -11,7 +11,8 @@
      var foo = $( this ).data( "id" );
      
      if( foo === "c" ) {
-         sum = "";
+       sum = "";
+       $( ".calc_total_display_number" ).val( sum );  
      } else if( foo !== "=" ){
         if( sum === "0" ){
           sum = "";
