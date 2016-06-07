@@ -256,12 +256,13 @@ var Interpreter = function() {
    var factor = function() {
       var result = "";
      
+      // TODO: Look if token is INTEGER or FLOAT
       if( currentToken.type === "INTEGER" ){
          result = currentToken.value;
          verifyToken( "INTEGER" );
       } else if ( currentToken.type === "LPAREN" ){
          verifyToken( "LPAREN" );
-         result += expr();
+         result = expr();
          verifyToken("RPAREN");
       }
      

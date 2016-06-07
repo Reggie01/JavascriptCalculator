@@ -162,5 +162,19 @@ describe('Lexer Part 6', function() {
    });
 });
 
+describe('Lexer Part 6', function() {
+   describe('Interpreter.expr("7 +  (2 + 2)"), verify operator precedence with multiple parens', function () {
+     it('should return 22', function () {
+       var lexer = interpreter.Lexer( interpreter.regexHelpers );
+       lexer.init("7 + (2 + 2)");
+       var tokens = lexer.createTokens();
+       assert.equal( 7, tokens.length );
+       var interpret = interpreter.Interpreter();
+       interpret.init( tokens );
+       assert.equal( 11, interpret.expr() );
+     });
+   });
+});
+
 7 + 3 * (10 / (12 / (3 + 1) - 1))
 
