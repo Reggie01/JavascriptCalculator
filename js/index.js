@@ -8,16 +8,16 @@
   var sum = "";
   
   function clickHandler( e ){
-     var foo = $( this ).data( "id" );
+     var calculatorValue = $( this ).data( "id" );
      
-     if( foo === "c" ) {
+     if( calculatorValue === "c" ) {
        sum = "";
        $( ".calc_total_display_number" ).val( sum );  
-     } else if( foo !== "=" ){
+     } else if( calculatorValue !== "=" ){
         if( sum === "0" ){
           sum = "";
         } else {
-          sum += foo; 
+          sum += calculatorValue; 
         }
        $( ".calc_total_display_number" ).val( sum );
      } else {

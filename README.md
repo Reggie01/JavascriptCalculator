@@ -1,7 +1,7 @@
 ﻿#Readme
 
 This is the handlebars version of FreeCodeCamp Zipline project "[Javascript Calculator](http://www.freecodecamp.com/challenges/build-a-javascript-calculator)". Follow the link
-to see all user stories for the [project](http://www.freecodecamp.com/challenges/build-a-javascript-calculator).
+to see all user stories for the [project](http://www.freecodecamp.com/challenges/build-a-javascript-calculator). My codepen version of the Javascript Calculator is at [codepen](http://codepen.io/Reggie01/full/RWgQQB/).
 
 ### User Stories
 * User Story: I can add, subtract, multiply and divide two numbers.

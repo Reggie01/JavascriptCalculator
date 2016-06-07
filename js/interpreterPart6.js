@@ -27,7 +27,7 @@ function Token( type, value ){
     Token types
 */
 var Type = {
-   INTEGER: "INTEGER",
+   NUMBER: "NUMBER",
    ADDITION: "ADDITION",
    SUBTRACTION: "SUBTRACTION",
    MULTIPLICATION: "MULTIPLICATION",
@@ -66,6 +66,9 @@ var regexHelpers = ( function() {
      },
      isRParenOp: function( character ){
         return /\)/.test( character );
+     },
+     isDecimal: function( character ) {
+       return /^\.$/.test( character );
      }
   }
 }());
@@ -82,7 +85,7 @@ var regexHelpers = ( function() {
       Local Function
         -- advance
           increment position by 1 and assing currentChar to text index at position
-        -- createInteger
+        -- createNumber
           local variable: sum type String
           while current character is a number add to sum, advance(), return sum 
         -- skipWhiteSpace
@@ -107,13 +110,23 @@ var Lexer = function( regexHelpers ) {
      
   };
   
-  var createInteger = function() {
+  var createNumber = function() {
      var sum = "";
-     while( helpers.isInteger( currentChar ) ){
+     while( helpers.isInteger( currentChar ) || helpers.isDecimal( currentChar ) ){
         sum += currentChar;
         advance();
      }
-     return parseInt( sum, 10 );
+    
+     if( sum.indexOf( "." ) !== -1 ) {
+          try {
+               sum = parseFloat( sum );
+          } catch( e ) {
+               throw new Error("lexer error");
+          }
+     } else {
+          sum = parseInt( sum, 10 );
+     }
+     return sum;
   };
   
   var skipWhiteSpace = function() {
@@ -136,8 +149,13 @@ var Lexer = function( regexHelpers ) {
               advance();
            }
            
+           if ( helpers.isDecimal( currentChar ) ) {
+               tokens.push( new Token( Type.NUMBER, createNumber( currentChar ) ) );
+               continue;
+           }
+           
            if( helpers.isInteger( currentChar ) ){
-              tokens.push( new Token( Type.INTEGER, createInteger( currentChar ) ) );
+              tokens.push( new Token( Type.NUMBER, createNumber( currentChar ) ) );
               continue;
            }
            
@@ -211,7 +229,7 @@ var Lexer = function( regexHelpers ) {
         term
           follow grammar term: factor((MUL|DIV) factor)*
         factor
-          follow grammar factor: INTEGER | LPAREN expr RPAREN
+          follow grammar factor: NUMBER | LPAREN expr RPAREN
         verifyToken
           verify current token is correct
       Global function
@@ -256,10 +274,9 @@ var Interpreter = function() {
    var factor = function() {
       var result = "";
      
-      // TODO: Look if token is INTEGER or FLOAT
-      if( currentToken.type === "INTEGER" ){
+      if( currentToken.type === "NUMBER" ){
          result = currentToken.value;
-         verifyToken( "INTEGER" );
+         verifyToken( "NUMBER" );
       } else if ( currentToken.type === "LPAREN" ){
          verifyToken( "LPAREN" );
          result = expr();
