@@ -2,18 +2,14 @@
   Study material: https://ruslanspivak.com/lsbasi-part6/
   Read to see Ruslan's code changes to the interpreter.
   The following code is my answer to Ruslan's blog exercises.
+  
+  
+  Exercises
+  -------------
+  Write your own version of the interpreter of arithmetic expressions as described in this article. Remember: repetition is the mother of all learning.
 */
 
 // Version 0.4.5
-
-
-/*
-
-Exercises
--------------
-Write your own version of the interpreter of arithmetic expressions as described in this article. Remember: repetition is the mother of all learning.
-
-*/
 
 /*
     Token class
@@ -314,6 +310,9 @@ var Interpreter = function() {
       expr: expr
    }
 };
+
+
+// TODO: add unary operator
 
 // module.exports = {
    // regexHelpers: regexHelpers,

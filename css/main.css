@@ -268,6 +268,7 @@ body {
   width: 25%;
   margin-right: -4px;
   line-height: 50px;
+  vertical-align: top;
 }
 
 .calc_button{
@@ -312,6 +313,7 @@ body {
 
 .calc_button_left {
   border-left: 0px;
+  height: 49px;
 }
 
 .calc_button_inner{
